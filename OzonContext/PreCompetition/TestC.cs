@@ -8,7 +8,7 @@ namespace OzonContext.PreCompetition
 {
     internal class TestC
     {
-        public static void TestCMain(string[] args)
+        public static void Main(string[] args)
         {
 
             var testCaseCount = int.Parse(Console.ReadLine());
