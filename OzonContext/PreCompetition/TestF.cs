@@ -7,58 +7,83 @@
             var testCaseCount = int.Parse(Console.ReadLine());
             for (int c = 0; c < testCaseCount; c++)
             {
+                bool final = true;
                 var count = int.Parse(Console.ReadLine());
+                string[] strings = new string[count];
+                for (int i = 0; i < count; i++)
+                {
+                    strings[i] = Console.ReadLine();
+                }
                 var di = new Diapazon();
                 for (int i = 0; i < count; i++)
                 {
                     TimeOnly[] diap = new TimeOnly[2];
                     try
                     {
-                        diap = Console.ReadLine().Split('-').Select(d => TimeOnly.Parse(d)).ToArray();
+                        diap = strings[i].Split('-').Select(d => TimeOnly.Parse(d)).ToArray();
                     }
                     catch
                     {
+                        final = false;
                         Console.WriteLine("NO");
-                        Environment.Exit(1);
+                        break;
                     }
-                    CheckDiap(diap);
-                    di.Add(new Interval(diap));
+                    if (CheckDiap(diap))
+                    {
+                        if (!di.Add(new Interval(diap)))
+                        {
+
+                            final = false;
+                            Console.WriteLine("NO");
+                            break;
+                        }
+
+                    }
+                    else
+                    {
+                        final = false;
+                        Console.WriteLine("NO");
+                        break;
+                    }
                 }
+                if (final) Console.WriteLine("YES");
             }
         }
 
-        public static void CheckDiap(TimeOnly[] diap)
+        public static bool CheckDiap(TimeOnly[] diap)
         {
             if (diap[0] > diap[1])
             {
-                Console.WriteLine("NO");
-                Environment.Exit(1);
+                return false;
             }
+            return true;
         }
 
     }
     public class Diapazon
     {
         List<Interval> Intervals { get; set; }
+        public readonly TimeOnly day = new TimeOnly(0, 0, 0);
+        public readonly TimeOnly night = new TimeOnly(23, 59, 59);
 
         public bool Add(Interval interval)
         {
-            Intervals ??= new List<Interval>();
-            var startCount = Intervals.Count;
-            var day = new TimeOnly(0, 0, 0);
-            var night = new TimeOnly(23, 59, 59);
-            for (int i = 0; i < Intervals.Count - 1; i++)
+            if (Intervals is null)
             {
-                if (interval.Start > Intervals[i].End && interval.End < Intervals[i + 1].Start && interval.Start >= day && interval.End <= night)
+                Intervals = new List<Interval>();
+                Intervals.Add(interval);
+                return true;
+            }
+            var startCount = Intervals.Count;
+            for (int i = 0; i < Intervals.Count; i++)
+            {
+                if (!(Intervals[i].NotIncluding(interval) && interval.Start >= day && interval.End <= night))
                 {
-                    Intervals.Insert(i + 1, interval);
-                    break;
+                    //Intervals.Insert(i + 1, interval);
+                    return false;
                 }
             }
-            if (startCount == Intervals.Count)
-            {
-                return false;
-            }
+            Intervals.Add(interval);
             return true;
         }
     }
@@ -71,6 +96,13 @@
         {
             Start = interval[0];
             End = interval[1];
+        }
+
+        public bool NotIncluding(Interval interval)
+        {
+            if ((interval.Start < this.Start) && (interval.End < this.Start)) return true;
+            if ((interval.Start > this.End) && (interval.End > this.End)) return true;
+            return false;
         }
     }
 }

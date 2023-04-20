@@ -1,6 +1,4 @@
-﻿using System.Net.WebSockets;
-
-public class TestB
+﻿public class TestB
 {
     public static void TestBMain(string[] args)
     {
