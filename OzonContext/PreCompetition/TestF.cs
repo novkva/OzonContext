@@ -70,8 +70,10 @@
         {
             if (Intervals is null)
             {
-                Intervals = new List<Interval>();
-                Intervals.Add(interval);
+                Intervals = new List<Interval>
+                {
+                    interval
+                };
                 return true;
             }
             var startCount = Intervals.Count;
