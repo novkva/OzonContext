@@ -8,6 +8,17 @@ namespace OzonContext.PreCompetition
 {
     public class TestI
     {
+        public static void Main(string[] args)
+        {
+
+            var testCaseCount = Console.ReadLine().Split(' ').Select(it => int.Parse(it)).ToArray();
+            var processes = Console.ReadLine().Split(' ').Select(it => int.Parse(it)).ToArray();
+
+            for (int i = 0; i < testCaseCount[1]; i++)
+            {
+                var process = Console.ReadLine().Split(' ').Select(it => int.Parse(it)).ToArray(); 
+            }
+        }
     }
 
     public class Tasker
