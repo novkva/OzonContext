@@ -12,7 +12,7 @@ namespace OzonContext.Competition
     {
         static char[] glas = new char[] { 'a', 'e', 'i', 'o', 'u', 'y' };
         public static char[] second = new char[] { 's', 'h', 'x', 'z' };
-        public static void Main(string[] args)
+        public static void TestBMain(string[] args)
         {
             var testCaseCount = int.Parse(Console.ReadLine());
             for (int i = 0; i < testCaseCount; i++)
