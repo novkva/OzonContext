@@ -2,7 +2,7 @@
 {
     public class TestF
     {
-        public static void Main(string[] args)
+        public static void TestFMain(string[] args)
         {
             var testCaseCount = int.Parse(Console.ReadLine());
             for (int c = 0; c < testCaseCount; c++)

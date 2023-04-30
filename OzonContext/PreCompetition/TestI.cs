@@ -8,7 +8,7 @@ namespace OzonContext.PreCompetition
 {
     public class TestI
     {
-        public static void Main(string[] args)
+        public static void TestIMain(string[] args)
         {
 
             var testCaseCount = Console.ReadLine().Split(' ').Select(it => int.Parse(it)).ToArray();
