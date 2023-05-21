@@ -81,7 +81,6 @@
             {
                 if (!(Intervals[i].NotIncluding(interval) && interval.Start >= day && interval.End <= night))
                 {
-                    //Intervals.Insert(i + 1, interval);
                     return false;
                 }
             }
